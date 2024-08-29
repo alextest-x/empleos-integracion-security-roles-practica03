@@ -1,0 +1,35 @@
+
+empleos-integracion-security-roles-practica03
+
+ya funciona los registros de administracion donde registra usuarios con un perfil como Admin o supervisor o usuario.
+
+ya funciona el select de perfiles donde registra los perfiles
+
+ya funciona al senviar las solicitudes el usuario.
+
+
+hay un error en solicitudes
+de un usuario con perfil usuario al solicitar una vacante 
+error:
+
+Hibernate: select u1_0.id,u1_0.email,u1_0.estatus,u1_0.fechaRegistro,u1_0.nombre,u1_0.password,u1_0.username from Usuarios u1_0 where u1_0.username=?
+Hibernate: select s1_0.idUsuario,s1_1.id,s1_1.archivo,s1_1.comentarios,s1_1.fecha,s1_1.idUsuario,v1_0.id,c1_0.id,c1_0.descripcion,c1_0.nombre,v1_0.descripcion,v1_0.destacado,v1_0.detalles,v1_0.estatus,v1_0.fecha,v1_0.imagen,v1_0.nombre,v1_0.salario from Solicitudes s1_0 join Solicitudes s1_1 on s1_1.id=s1_0.id left join Vacantes v1_0 on v1_0.id=s1_1.idVacante left join Categorias c1_0 on c1_0.id=v1_0.idCategoria where s1_0.idUsuario=?
+Hibernate: select p1_0.idUsuario,p1_1.id,p1_1.perfil from usuarioperfil p1_0 join Perfiles p1_1 on p1_1.id=p1_0.idPerfil where p1_0.idUsuario=?
+Hibernate: insert into Solicitudes (archivo,comentarios,fecha,idUsuario,idVacante) values (?,?,?,?,?)
+2024-08-25T02:37:52.622-06:00 ERROR 6980 --- [empleos] [nio-8081-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    
+: Servlet.service() for servlet [dispatcherServlet] in context with path [] 
+threw exception [Handler dispatch failed: java.lang.StackOverflowError] with root cause
+
+java.lang.StackOverflowError: null
+
+
+
+solucion 
+
+se hace cicla por que ponemos en el to.string() el atributo usuario y tenemos que quitarlo de la clase entity de solicitud
+para que no de este error.
+ya funciona.
+
+
+
+ 
